@@ -14,8 +14,25 @@ public class Main {
         menu.addDrink(new Drink("Espresso", 50));
         menu.addDrink(new Drink("Latte", 70));
         menu.addDrink(new Drink("Cappuccino", 65));
+        menu.addDrink(new Drink("Mocha", 75));
+        menu.addDrink(new Drink("Thai Tea", 55));
+        menu.addDrink(new Drink("Milk", 30));
+        menu.addDrink(new Drink("Strawberry Milk", 55));
+        menu.addDrink(new Drink("Matcha Latte", 85));
+        menu.addDrink(new Drink("Milk with Honey", 45));
+        menu.addDrink(new Drink("Chocolate Milk", 50));
         menu.addTopping(new Topping("Whipped Cream", 15));
         menu.addTopping(new Topping("Vanilla Syrup", 10));
+        menu.addTopping(new Topping("Caramel Drizzle", 15));
+        menu.addTopping(new Topping("Chocolate Sauce", 15));
+        menu.addTopping(new Topping("Cinnamon Powder", 5));
+        menu.addTopping(new Topping("Hazelnut Syrup", 10));
+        menu.addTopping(new Topping("Almond Milk", 20));
+        menu.addTopping(new Topping("Soy Milk", 20));
+        menu.addTopping(new Topping("Oat Milk", 20));
+        menu.addTopping(new Topping("Marshmallows", 15));
+        menu.addTopping(new Topping("Ice Cream Scoop", 25));
+        menu.addTopping(new Topping("Honey", 10));
 
         // Display menu
         menu.displayMenu();

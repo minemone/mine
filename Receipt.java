@@ -10,13 +10,24 @@ public class Receipt {
     private float points;
 
     // Constructor
-    public Receipt(int receiptID, int paymentID, String customerID, float totalPrice, float pointsEarned) {
+    public Receipt(int receiptID, int paymentID, String customerID, float totalPrice) {
         this.receiptID = receiptID;
         this.orderDateTime = LocalDateTime.now(); // กำหนดเวลาปัจจุบัน
         this.totalPrice = totalPrice;
-        this.pointsEarned = totalPrice/10;
+        this.pointsEarned = totalPrice / 10; // คำนวณคะแนนที่ได้รับ (สมมติว่าได้ 1 พอยท์ต่อยอด 10 หน่วย)
         this.paymentID = paymentID;
         this.customerID = customerID;
+        this.points = pointsEarned;
+    }
+
+    // Constructor ที่รับออบเจกต์ Order
+    public Receipt(Order order) {
+        this.receiptID = (int) (Math.random() * 100000); // ตัวอย่างการสร้างเลขที่ใบเสร็จแบบสุ่ม
+        this.orderDateTime = order.getOrderDateTime();
+        this.totalPrice = order.getTotalPrice();
+        this.pointsEarned = totalPrice / 10;
+        this.paymentID = order.getOrderID(); // ใช้ orderID เป็นการแทน paymentID ชั่วคราว
+        this.customerID = order.getCustomer().getName();
         this.points = pointsEarned;
     }
 
@@ -51,5 +62,12 @@ public class Receipt {
     // Method ดึงคะแนนสะสมที่ได้
     public float getPointsEarned() {
         return pointsEarned;
+    }
+
+    // Method แสดงใบเสร็จ
+    public void printReceipt() {
+        System.out.println("===== ใบเสร็จ =====");
+        getReceiptDetails();
+        System.out.println("===================");
     }
 }

@@ -1,4 +1,6 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
     private int orderID;
@@ -7,23 +9,39 @@ public class Order {
     private LocalDateTime orderDateTime;
     private int cartID;
     private float totalPrice;
-    private float drinkprice;
-    private float tableprice;
+    private float drinkPrice;
+    private float tablePrice;
+    private List<Drink> drinks;
+    private List<Topping> toppings;
 
     // Constructor
-    public Order(int orderID, Customer customer, LocalDateTime orderDateTime, int cartID, float drinkprice, float tableprice) {
-        this.orderID = orderID;
+    public Order(Customer customer) {
+        this.orderID = generateOrderID();
         this.customer = customer;
-        this.orderDateTime = orderDateTime;
-        this.cartID = cartID;
-        this.drinkprice = drinkprice;
-        this.tableprice = tableprice;
+        this.orderDateTime = LocalDateTime.now();
+        this.drinks = new ArrayList<>();
+        this.toppings = new ArrayList<>();
         this.totalPrice = calculateTotalPrice();
     }
 
+    // Method to generate order ID (example implementation)
+    private int generateOrderID() {
+        return (int) (Math.random() * 100000); // Random ID generation for simplicity
+    }
+
     // Method to calculate the total price
-    private float calculateTotalPrice() {
-        return drinkprice + tableprice;
+    float calculateTotalPrice() {
+        float drinksTotal = 0;
+        for (Drink drink : drinks) {
+            drinksTotal += drink.getPrice();
+        }
+
+        float toppingsTotal = 0;
+        for (Topping topping : toppings) {
+            toppingsTotal += topping.getPrice();
+        }
+
+        return drinksTotal + toppingsTotal + tablePrice;
     }
 
     // Method to get customer information
@@ -37,7 +55,7 @@ public class Order {
     }
 
     // Method to check order status
-    public boolean setcheckOrder() {
+    public boolean setCheckOrder() {
         return statusOrder != null && !statusOrder.isEmpty();
     }
 
@@ -67,14 +85,30 @@ public class Order {
     }
 
     // Method to set the drink price and recalculate total
-    public void setDrinkPrice(float drinkprice) {
-        this.drinkprice = drinkprice;
+    public void setDrinkPrice(float drinkPrice) {
+        this.drinkPrice = drinkPrice;
         this.totalPrice = calculateTotalPrice();
     }
 
     // Method to set the table price and recalculate total
-    public void setTablePrice(float tableprice) {
-        this.tableprice = tableprice;
+    public void setTablePrice(float tablePrice) {
+        this.tablePrice = tablePrice;
         this.totalPrice = calculateTotalPrice();
+    }
+
+    // Method to add a drink to the order
+    public void addDrink(Drink drink) {
+        if (drink != null) {
+            drinks.add(drink);
+            this.totalPrice = calculateTotalPrice();
+        }
+    }
+
+    // Method to add a topping to the order
+    public void addTopping(Topping topping) {
+        if (topping != null) {
+            toppings.add(topping);
+            this.totalPrice = calculateTotalPrice();
+        }
     }
 }

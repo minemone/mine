@@ -1,5 +1,5 @@
 public class Payment {
-    private int paymentID;
+    private float paymentID;
     private String paymentMethod;
     private int orderID;
     private String customerID; // เพิ่ม customerID
@@ -7,17 +7,17 @@ public class Payment {
     private float totalPrice;
 
     // Constructor ที่ปรับปรุง
-    public Payment(int paymentID, String paymentMethod, int orderID, String string, float totalPrice) {
+    public Payment(float paymentID, String paymentMethod) {
         this.paymentID = paymentID;
         this.paymentMethod = paymentMethod;
         this.orderID = orderID;
-        this.customerID = string; // ตั้งค่าลงใน customerID
+        this.customerID = customerID; // รับ customerID ที่ถูกต้องจากการเรียกใช้
         this.totalPrice = totalPrice;
         this.pointCustomer = 0; // ตั้งค่าเริ่มต้นสำหรับคะแนน
     }
 
     // Getter methods
-    public int getPaymentID() {
+    public float getPaymentID() {
         return paymentID;
     }
 
@@ -42,11 +42,19 @@ public class Payment {
     }
 
     public void setPointsRefunded(int points) {
-        // Set points refunded logic here
+        // Logic สำหรับการคืนคะแนน
         this.pointCustomer += points; // ตัวอย่างการเพิ่มคะแนนที่คืน
     }
 
     public float getPointCustomer() {
         return pointCustomer; // Getter สำหรับคะแนน
+    }
+
+    // Method สำหรับประมวลผลการชำระเงิน
+    public void processPayment() {
+        // ตัวอย่างการทำงานพื้นฐานของการประมวลผลการชำระเงิน
+        System.out.println("Payment method: " + paymentMethod);
+        System.out.println("Total amount: " + totalPrice + " THB");
+        System.out.println("Payment successful!");
     }
 }

@@ -1,71 +1,80 @@
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // สร้างตัวอย่างลูกค้า
-        Customer[] customers = {
-            new Customer("John Doe", "123-456-7890", "john.doe@example.com", "C001", 50.0f),
-            new Customer("Jane Smith", "234-567-8901", "jane.smith@example.com", "C002", 50.0f),
-            new Customer("Michael Brown", "345-678-9012", "michael.brown@example.com", "C003", 50.0f),
-            new Customer("Emily Davis", "456-789-0123", "emily.davis@example.com", "C004", 50.0f),
-            new Customer("David Wilson", "567-890-1234", "david.wilson@example.com", "C005", 50.0f)
-        }; // เพิ่มปิดวงเล็บตรงนี้
+        Scanner scanner = new Scanner(System.in);
+
+        // Welcome message
+        System.out.println("Welcome to CafeSci!\n");
         
+        // Sample menu
+        Menu menu = new Menu();
+        menu.addDrink(new Drink("Espresso", 50));
+        menu.addDrink(new Drink("Latte", 70));
+        menu.addDrink(new Drink("Cappuccino", 65));
+        menu.addTopping(new Topping("Whipped Cream", 15));
+        menu.addTopping(new Topping("Vanilla Syrup", 10));
 
-        // สร้างตัวอย่างโต๊ะ
-        Cafetable[] tables = {
-            new Cafetable(1, "Table 1", 5.0f),
-            new Cafetable(2, "Table 2", 5.0f),
-            new Cafetable(3, "Table 3", 5.0f),
-            new Cafetable(4, "Table 4", 5.0f),
-            new Cafetable(5, "Table 5", 5.0f)
-        };
+        // Display menu
+        menu.displayMenu();
 
-        // สร้างตัวอย่างเครื่องดื่ม
-        Drink[] drinks = {
-            new Drink(101, "ชาเขียว", 35.0f),
-            new Drink(102, "นมสด", 35.0f),
-            new Drink(103, "โกโก้", 35.0f),
-            new Drink(104, "ชาไทย", 35.0f),
-            new Drink(105, "นมชมพู", 35.0f)
-        };
+        // Create a customer and take an order
+        System.out.print("\nEnter your name: ");
+        String customerName = scanner.nextLine();
+        System.out.print("Enter your address: ");
+        String customerAddress = scanner.nextLine();
 
-        // สร้างตัวอย่างคำสั่งซื้อและการชำระเงิน
-        for (int i = 0; i < 5; i++) {
-            // Get drinkPrice and tablePrice
-            float drinkPrice = drinks[i].getPrice();
-            float tablePrice = tables[i].getTablePrice();
+        Customer customer = new Customer(customerName, customerAddress);
+        System.out.println("\nHello, " + customer.getName() + "! Let's take your order.");
 
-            // Calculate totalPrice = drinkPrice + tablePrice
-            float totalPrice = drinkPrice + tablePrice;
+        Order order = new Order(customer);
 
-            // Create an order using totalPrice
-            Order order = new Order(i + 1, customers[i], LocalDateTime.now(), tables[i].getCafetableID(), drinkPrice, tablePrice);
-
-            // Create payment
-            Payment payment = new Payment(123 + i, "QR code", order.getOrderID(), customers[i].getCustomerId(), totalPrice);
-
-            // สร้างตัวอย่างใบเสร็จ
-            Receipt receipt = new Receipt(1 + i, payment.getPaymentID(), customers[i].getCustomerId(), payment.getTotalPrice(), 0.0f);
-
-            // สร้างตัวอย่างโปรโมชั่น
-            Promotion promotion = new Promotion("-", drinks[i].getName(), new Date());
-
-            // สร้างตัวอย่างไรเดอร์
-            Rider rider = new Rider("Rider " + (i + 1), "123-456-789" + i, "rider" + i + "@example.com", "R00" + (i + 1));
-            // แสดงผลข้อมูล
-            System.out.println("ลูกค้า: " + customers[i].getName());
-            tables[i].showDetailsOfTable();
-            drinks[i].setSweetnessLevel("ปกติ");
-            System.out.println("เครื่องดื่มที่สั่ง: " + drinks[i].getName() + ", ระดับความหวาน: " + drinks[i].getSweetness().getSweetnessLevel());
-            System.out.println("รายละเอียดคำสั่งซื้อ: " + order.getOrderDetails());
-            System.out.println("วิธีการชำระเงิน: " + payment.getPaymentMethod());
-            receipt.getReceiptDetails();
-            System.out.println("โปรโมชั่น: " + promotion.getName());
-            rider.showRealTimeDeliveryStatus(order);
-            System.out.println("--------------------------------------------------");
+        while (true) {
+            System.out.print("\nEnter the name of the drink you want to add (or type 'done' to finish): ");
+            String drinkName = scanner.nextLine();
+            if (drinkName.equalsIgnoreCase("done")) {
+                break;
+            }
+            Drink drink = menu.getDrink(drinkName);
+            if (drink != null) {
+                order.addDrink(drink);
+            } else {
+                System.out.println("Sorry, that drink is not on the menu.");
+            }
         }
-    
+
+        while (true) {
+            System.out.print("\nEnter the name of the topping you want to add (or type 'done' to finish): ");
+            String toppingName = scanner.nextLine();
+            if (toppingName.equalsIgnoreCase("done")) {
+                break;
+            }
+            Topping topping = menu.getTopping(toppingName);
+            if (topping != null) {
+                order.addTopping(topping);
+            } else {
+                System.out.println("Sorry, that topping is not on the menu.");
+            }
+        }
+
+        // Show order summary
+        System.out.println("\nOrder Summary:");
+        order.getOrderDetails();
+
+        // Payment process
+        System.out.print("\nEnter payment method (e.g., 'Credit Card', 'Cash'): ");
+        String paymentMethod = scanner.nextLine();
+        Payment payment = new Payment(order.calculateTotalPrice(), paymentMethod);
+        System.out.println("\nProcessing payment...");
+        payment.processPayment();
+
+        // Generate receipt
+        Receipt receipt = new Receipt(order);
+        System.out.println("\nReceipt:");
+        receipt.printReceipt();
+
+        scanner.close();
     }
 }

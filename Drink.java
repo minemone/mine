@@ -8,7 +8,7 @@ public class Drink {
     private int sales;
 
     // Constructor
-    public Drink(int drinkID, String name ,float drinkprice) {
+    public Drink(String name ,float drinkprice) {
         this.drinkID = drinkID;
         this.name = name;
         this.drinkprice = drinkprice;  
@@ -44,7 +44,7 @@ public class Drink {
 
     // Method ดึงท็อปปิ้ง
     public Topping getTopping() {
-        return new Topping(toppingName); // Return object ของ Topping
+        return new Topping(toppingName, drinkID); // Return object ของ Topping
     }
 
     // Method กำหนดประเภทเครื่องดื่ม

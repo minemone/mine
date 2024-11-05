@@ -4,8 +4,8 @@ public class Manager extends Person {
     private String managerID;
 
     // Constructor
-    public Manager(String name, String phoneNumber, String email, String managerID) {
-        super(name, phoneNumber, email);
+    public Manager(String personID, String name, String phoneNumber, Role role, String managerID) {
+        super(personID, name, role); // เรียก Constructor ของ Person และกำหนด Role
         this.managerID = managerID;
     }
 

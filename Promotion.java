@@ -1,61 +1,33 @@
 import java.util.Date;
-import java.util.List;
 
 public class Promotion {
-    private String name;
-    private String drinkType;
-    private String selectPromotion;
-    private Date promotionPeriod;
-    private int sales;
+    private String promotionName;
+    private double discountRate;
+    private Date validUntil;
 
     // Constructor
-    public Promotion(String name, String drinkType, Date promotionPeriod) {
-        this.name = name;
-        this.drinkType = drinkType;
-        this.promotionPeriod = promotionPeriod;
-        this.sales = 0; // เริ่มต้นยอดขายที่ 0
+    public Promotion(String promotionName, double discountRate, Date validUntil) {
+        this.promotionName = promotionName;
+        this.discountRate = discountRate;
+        this.validUntil = validUntil;
     }
 
-    // Method แสดงชื่อเครื่องดื่ม
-    public String getName() {
-        return name;
+    // Method to apply promotion
+    public double applyPromotion(double originalPrice) {
+        if (new Date().before(validUntil)) {
+            double discountedPrice = originalPrice * (1 - discountRate / 100);
+            System.out.println("Promotion applied: " + promotionName);
+            return discountedPrice;
+        } else {
+            System.out.println("Promotion expired.");
+            return originalPrice;
+        }
     }
 
-    // Method กำหนดประเภทเครื่องดื่ม
-    public void setDrinkType(String drinkType) {
-        this.drinkType = drinkType;
-    }
-
-    // Method ดึงโปรโมชั่นที่เลือก
-    public String getSelectPromotion() {
-        return selectPromotion;
-    }
-
-    // Method กำหนดระยะเวลาโปรโมชั่น
-    public void setPromotionPeriod(int days) {
-        // สมมติให้เพิ่มจำนวนวันเข้าไปในระยะเวลาปัจจุบัน
-        this.promotionPeriod = new Date(promotionPeriod.getTime() + (long)days * 24 * 60 * 60 * 1000);
-    }
-
-    // Method ดึงยอดขาย
-    public int getSales() {
-        return sales;
-    }
-
-    // Method กำหนดยอดขาย
-    public void setSales(int sales) {
-        this.sales = sales;
-    }
-
-    // Method แสดง 3 รายการที่ขายดีที่สุด
-    public List<Drink> viewTop3BestSellingItems() {
-        // ลอจิกการคำนวณสินค้าที่ขายดีที่สุด
-        return null; // ตัวอย่าง, ในความเป็นจริงจะต้องมีการคำนวณและคืนรายการ
-    }
-
-    // Method แสดง 3 รายการที่ขายน้อยที่สุด
-    public List<Drink> viewTop3LeastSellingItems() {
-        // ลอจิกการคำนวณสินค้าที่ขายน้อยที่สุด
-        return null; // ตัวอย่าง, ในความเป็นจริงจะต้องมีการคำนวณและคืนรายการ
+    // Method to display promotion details
+    public void displayPromotion() {
+        System.out.println("Promotion: " + promotionName);
+        System.out.println("Discount: " + discountRate + "%");
+        System.out.println("Valid Until: " + validUntil);
     }
 }

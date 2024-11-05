@@ -1,20 +1,26 @@
-public class Drink {
+class Drink {
     private int drinkID;
     private String name;
     private float drinkprice;
     private String sweetnessLevel;
-    private String toppingName;
+    private Topping topping;
     private DrinkType drinkType;
+    private DrinkCategory category;
     private int sales;
 
     // Constructor
-    public Drink(String name ,float drinkprice) {
+    public Drink(int drinkID, String name, float drinkprice,DrinkCategory category) {
         this.drinkID = drinkID;
         this.name = name;
-        this.drinkprice = drinkprice;  
-        this.sweetnessLevel = "ปกติ"; // ระดับความหวานเริ่มต้นเป็น Medium
-        this.toppingName = "ไม่ใส่"; // ไม่มีท็อปปิ้งเริ่มต้น
+        this.drinkprice = drinkprice;
+        this.sweetnessLevel = "หวานปกติ"; // ระดับความหวานเริ่มต้นเป็น Medium
+        this.topping = null; // ไม่มีท็อปปิ้งเริ่มต้น
         this.sales = 0; // ยอดขายเริ่มต้นเป็น 0
+        this.category = category;
+    }
+
+    public int getDrinkID() {
+        return drinkID;
     }
 
     // Method แสดงชื่อเครื่องดื่ม
@@ -33,18 +39,18 @@ public class Drink {
     }
 
     // Method ดึงความหวาน
-    public Sweetness getSweetness() {
-        return new Sweetness(sweetnessLevel); // Return object ของ Sweetness
+    public String getSweetness() {
+        return sweetnessLevel;
     }
 
     // Method กำหนดท็อปปิ้ง
     public void setTopping(Topping topping) {
-        this.toppingName = topping.getToppingName();
+        this.topping = topping;
     }
 
     // Method ดึงท็อปปิ้ง
     public Topping getTopping() {
-        return new Topping(toppingName, drinkID); // Return object ของ Topping
+        return topping;
     }
 
     // Method กำหนดประเภทเครื่องดื่ม
@@ -57,13 +63,9 @@ public class Drink {
         return drinkType;
     }
 
-    // Method ดึงยอดขายเครื่องดื่ม
-    public int getSales() {
-        return sales;
+    public DrinkCategory getCategory() {
+        return category;
     }
 
-    // Method กำหนดยอดขายเครื่องดื่ม
-    public void setSales(int sales) {
-        this.sales = sales;
-    }    
+
 }

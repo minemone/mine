@@ -1,19 +1,30 @@
+
 public class Sweetness {
-    private int sweetNessID;
-    private String sweetNessLevel;
+    private int SweetnessID;
+    private String SweetNessName;
 
     // Constructor
-    public Sweetness(String sweetNessLevel) {
-        this.sweetNessLevel = sweetNessLevel;
+    public Sweetness(int SweetnessID ,String SweetNessName) {
+        this.SweetnessID = SweetnessID;
+        this.SweetNessName = SweetNessName;
+    }
+
+    public int getSweetnessID() {
+        return SweetnessID;
+    }
+
+    public void setSweetnessID(int SweetnessID) {
+        this.SweetnessID= SweetnessID;
     }
 
     // Method ดึงระดับความหวาน
-    public String getSweetnessLevel() {
-        return sweetNessLevel;
+    public String getSweetnessName() {
+        return SweetNessName;
     }
 
     // Method ตั้งค่าระดับความหวาน
-    public void setSweetnessLevel(String sweetNessLevel) {
-        this.sweetNessLevel = sweetNessLevel;
+    public void setSweetnessName(String SweetNessName) {
+        this.SweetNessName = SweetNessName;
     }
+
 }

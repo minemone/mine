@@ -1,40 +1,78 @@
 public class Person {
+    protected String personID;
     private String name;
-    private String phoneNumber;
-    private String email;
-    
+    private Role role;
 
-
-    
     // Constructor
-    public Person(String name, String phoneNumber, String email) {
+    public Person(String personID, String name, Role role) {
+        this.personID = personID;
         this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.role = role;
     }
 
-    // Getters and Setters
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void performAction(String action) {
+        switch (role) {
+            case CUSTOMER:
+                if ("order".equals(action)) {
+                    orderFood();
+                } else if ("viewMenu".equals(action)) {
+                    viewMenu();
+                }
+                break;
+            case MANAGER:
+                if ("manageMenu".equals(action)) {
+                    manageMenu();
+                } else if ("viewReports".equals(action)) {
+                    viewReports();
+                }
+                break;
+            case RIDER:
+                if ("viewDelivery".equals(action)) {
+                    viewDeliveryStatus();
+                } else if ("updateStatus".equals(action)) {
+                    updateStatus();
+                }
+                break;
+            default:
+                System.out.println("Action not permitted.");
+                break;
+        }
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    // ฟังก์ชันสำหรับแต่ละการกระทำ
+    private void orderFood() {
+        System.out.println(name + " is ordering food.");
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    private void viewMenu() {
+        System.out.println(name + " is viewing the menu.");
     }
 
-    public String getEmail() {
-        return email;
+    private void manageMenu() {
+        System.out.println(name + " is managing the menu.");
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    private void viewReports() {
+        System.out.println(name + " is viewing reports.");
+    }
+
+    private void viewDeliveryStatus() {
+        System.out.println(name + " is viewing delivery status.");
+    }
+
+    private void updateStatus() {
+        System.out.println(name + " is updating the delivery status.");
     }
 }

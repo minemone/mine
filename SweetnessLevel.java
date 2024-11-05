@@ -1,10 +1,10 @@
 
-public class Sweetness {
+public class SweetnessLevel {
     private int SweetnessID;
     private String SweetNessName;
 
     // Constructor
-    public Sweetness(int SweetnessID ,String SweetNessName) {
+    public SweetnessLevel(int SweetnessID ,String SweetNessName) {
         this.SweetnessID = SweetnessID;
         this.SweetNessName = SweetNessName;
     }

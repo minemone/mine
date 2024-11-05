@@ -8,7 +8,7 @@ public class Menu {
     // private List<Menu> menuItems;
     private List<Drink> drinks;
     private List<Topping> toppings;
-    private List<Sweetness> sweetnessLevels;
+    private List<SweetnessLevel> sweetnessLevels;
     // private List<DrinkType> drinktypes;
     private List<PreparationType> PreparationTypes;
     
@@ -39,7 +39,7 @@ public class Menu {
     }
         public void displayMenusweetness() {
             System.out.println("\n-- Sweetness Levels --");
-            for (Sweetness sweetness : sweetnessLevels) {
+            for (SweetnessLevel sweetness : sweetnessLevels) {
                 System.out.printf("%d. %s  \n",sweetness.getSweetnessID(), sweetness.getSweetnessName());
             }
         }
@@ -76,8 +76,8 @@ public class Menu {
         return null;
     }
 
-    public Sweetness getSweetness(int sweetnessLevelID) {
-        for (Sweetness sweetness : sweetnessLevels) {
+    public SweetnessLevel getSweetness(int sweetnessLevelID) {
+        for (SweetnessLevel sweetness : sweetnessLevels) {
             if (sweetness.getSweetnessID()== sweetnessLevelID) {
                 return sweetness;
             }
@@ -105,7 +105,7 @@ public class Menu {
         toppings.add(topping);
     }
 
-    public void addSweetness(Sweetness sweetness) {
+    public void addSweetness(SweetnessLevel sweetness) {
         sweetnessLevels.add(sweetness);
     }
 
@@ -126,7 +126,7 @@ public class Menu {
     }
 
 
-    public void setSweetnessLevels(List<Sweetness> sweetnessLevels) {
+    public void setSweetnessLevels(List<SweetnessLevel> sweetnessLevels) {
         this.sweetnessLevels = sweetnessLevels;
         System.out.println("Sweetness levels list set successfully.");
     }

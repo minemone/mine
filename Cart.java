@@ -6,7 +6,7 @@ public class Cart {
     private List<Drink> items = new ArrayList<>();
     private List<Drink> drinks;
     private List<Topping> toppings;
-    private List<Sweetness> sweetnesses;
+    private List<SweetnessLevel> sweetnesses;
     private List<PreparationType> PreparationTypes;
     private float totalPrice;
 
@@ -35,7 +35,7 @@ public class Cart {
         // เพิ่ม Topping ลงในรายการ
         toppings.add(selectedTopping);
     }
-    public void addItem(Sweetness selectedSweetness) {
+    public void addItem(SweetnessLevel selectedSweetness) {
         // เพิ่ม Topping ลงในรายการ
         sweetnesses.add(selectedSweetness);
         // เพิ่มราคา Topping ไปยังราคาทั้งหมด
@@ -81,7 +81,7 @@ public class Cart {
         if (sweetnesses.isEmpty()) {
             cartSummary.append("ไม่มีระดับความหวาน, ");
         } else {
-            for (Sweetness sweetness : sweetnesses) {
+            for (SweetnessLevel sweetness : sweetnesses) {
                 cartSummary.append(sweetness.getSweetnessName()).append(", ");
             }
         }

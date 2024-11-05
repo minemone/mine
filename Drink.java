@@ -1,22 +1,27 @@
-class Drink {
+public class Drink {
     private int drinkID;
     private String name;
     private float drinkprice;
-    private String sweetnessLevel;
+    private SweetnessLevel sweetnessLevel;
     private Topping topping;
-    private DrinkType drinkType;
+    private PreparationType preparationType;
     private DrinkCategory category;
     private int sales;
 
-    // Constructor
-    public Drink(int drinkID, String name, float drinkprice,DrinkCategory category) {
+    // คอนสตรัคเตอร์ที่รวมทุกพารามิเตอร์
+    public Drink(int drinkID, String name, float drinkprice, SweetnessLevel sweetnessLevel, Topping topping, PreparationType preparationType, DrinkCategory category, int sales) {
         this.drinkID = drinkID;
         this.name = name;
         this.drinkprice = drinkprice;
-        this.sweetnessLevel = "หวานปกติ"; // ระดับความหวานเริ่มต้นเป็น Medium
-        this.topping = null; // ไม่มีท็อปปิ้งเริ่มต้น
-        this.sales = 0; // ยอดขายเริ่มต้นเป็น 0
+        this.sweetnessLevel = sweetnessLevel;
+        this.topping = topping;
+        this.preparationType = preparationType;
         this.category = category;
+        this.sales = sales;
+    }
+
+    public int getSales() {
+        return sales;
     }
 
     public int getDrinkID() {
@@ -34,12 +39,12 @@ class Drink {
     }
 
     // Method กำหนดระดับความหวาน
-    public void setSweetnessLevel(String sweetnessLevel) {
+    public void setSweetnessLevel(SweetnessLevel sweetnessLevel) {
         this.sweetnessLevel = sweetnessLevel;
     }
 
     // Method ดึงความหวาน
-    public String getSweetness() {
+    public SweetnessLevel getSweetness() {
         return sweetnessLevel;
     }
 
@@ -53,19 +58,17 @@ class Drink {
         return topping;
     }
 
-    // Method กำหนดประเภทเครื่องดื่ม
-    public void setDrinkType(DrinkType drinkType) {
-        this.drinkType = drinkType;
+    // Method กำหนด PreparationType
+    public void setPreparationType(PreparationType preparationType) {
+        this.preparationType = preparationType;
     }
 
-    // Method ดึงประเภทเครื่องดื่ม
-    public DrinkType getDrinkType() {
-        return drinkType;
+    // Method ดึง PreparationType
+    public PreparationType getPreparationType() {
+        return preparationType;
     }
 
     public DrinkCategory getCategory() {
         return category;
     }
-
-
 }
